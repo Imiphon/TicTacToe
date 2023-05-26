@@ -31,29 +31,25 @@ function render() {
 
   // Adding lines over the 9 fields
   tableHTML += `
-    <div class="lineFrame">
-    <div class="hideCont">
-    <div class="line vertical-line"></div>
-   
-    <div class="line vertical-line2"></div>
-    
-    <div class="line vertical-line3"></div>
-  
-    <div class="line horizontal-line"></div>
-    
-    <div class="line horizontal-line2"></div>
-        
-    <div class="line horizontal-line3"></div>
-        
-    <div class="line diagonal-up-line"></div>
-  
-    <div class="line diagonal-down-line"></div>
-  </div>
+  <div class="lineFrame" id="lineFrameID">
+    <div class="hideCont">   
+         <div class="line show-line0" id="line0"></div>    
+         <div class="line show-line1" id="line1"></div>  
+         <div class="line show-line2" id="line2"></div>    
+         <div class="line show-line3" id="line3"></div>        
+         <div class="line show-line4" id="line4"></div>        
+         <div class="line show-line5" id="line5"></div>  
+         <div class="line show-line6" id="line6"></div>
+         <div class="line show-line7" id="line7"></div>
+         <div class="line show-line8" id="line8"></div>
     </div>
-    `;
+  </div>
+  `;
   tableHTML += "</table>";
   content.innerHTML = tableHTML;
 }
+
+function htmlLines() {}
 
 function handleClick(fieldIndex) {
   if (!clickable || fields[fieldIndex] !== null) {
@@ -69,6 +65,52 @@ function handleClick(fieldIndex) {
 }
 
 function checkWinner() {
+    const winConditions = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+  
+    let winCombi = null; // Setze den Anfangswert von winCombi auf null
+  
+    for (let index in winConditions) {
+      const condition = winConditions[index];
+      const [a, b, c] = condition;
+      
+      if (
+        fields[a] &&
+        fields[a] === fields[b] &&
+        fields[a] === fields[c] &&
+        fields[a]
+      ) {
+        winCombi = index; // Weise winCombi den Indexwert zu, wenn die Bedingung erfüllt ist
+  
+        let winner = fields[a];
+        let winnerSign = winner === "circle" ? "Circle" : "Cross";
+        setTimeout(() => {
+          alert(`Congratulations! ${winnerSign} is the winner. winCombi is ${winCombi}`);
+        }, 1000);
+
+        document.getElementById('lineFrameID').style = 'display: block;';
+        document.getElementById(`line${winCombi}`).style ='display: block;';
+  
+        showWinLine(a, b, c);
+  
+        clickable = false;
+        return;
+      }
+    }
+  }
+  
+
+
+/*
+function checkWinner() {
   const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -80,8 +122,11 @@ function checkWinner() {
     [2, 4, 6],
   ];
 
-  for (const condition of winConditions) {
+  let winCombi = 0;
+
+  for (let condition of winConditions) {
     const [a, b, c] = condition;
+    
     if (
       fields[a] &&
       fields[a] === fields[b] &&
@@ -91,7 +136,7 @@ function checkWinner() {
       let winner = fields[a];
       let winnerSign = winner === "circle" ? "Circle" : "Cross";
       setTimeout(() => {
-        alert(`Congratulations! ${winnerSign} is the winner.`);
+        alert(`Congratulations! ${winnerSign} is the winner. winCombi is ${winComi}`);
       }, 1000);
 
       showWinLine(a, b, c);
@@ -101,6 +146,7 @@ function checkWinner() {
     }
   }
 }
+*/
 
 function generateCircleSVG() {
   let color = "#00B0EF";
@@ -174,7 +220,7 @@ window.addEventListener("load", function () {
 
 function showWinLine() {
   const winConditions = [
-    [0, 1, 2],
+    [0, 1, 2], 
     [3, 4, 5],
     [6, 7, 8],
     [0, 3, 6],
