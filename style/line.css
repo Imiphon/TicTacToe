@@ -5,7 +5,7 @@
     width: 300px;
     height: 300px;
     position: absolute;
-    display: flex;
+    display: none;
     justify-content: center;
     text-align: center;
   }
@@ -27,6 +27,18 @@
     left: 50%;
     transform: translateX(-50%);
   }
+  .vertical-line2 {
+    width: 2px;
+    height: 100%;
+    left: 25%;
+    transform: translateX(-50%);
+  }
+  .vertical-line3 {
+    width: 2px;
+    height: 100%;
+    left: 75%;
+    transform: translateX(-50%);
+  }
 
   .horizontal-line {
     width: 100%;
@@ -34,6 +46,20 @@
     top: 50%;
     transform: translateY(-50%);
   }
+
+  .horizontal-line2 {
+    width: 100%;
+    height: 2px;
+    top: 25%;
+    transform: translateY(-50%);
+  }
+  .horizontal-line3 {
+    width: 100%;
+    height: 2px;
+    top: 75%;
+    transform: translateY(-50%);
+  }
+
 
   .diagonal-up-line {
     width: 100%; /* Diagonal length = square root of (100^2 + 100^2) */
