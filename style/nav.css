@@ -13,8 +13,7 @@ nav {
 }
 .nav-center {
   padding-top: 16px;
-  display: flex;
-  
+  display: flex;  
   align-items: center;
 }
 .nav-right span{

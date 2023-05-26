@@ -12,6 +12,10 @@ let fields = [
   
   let clickable = true;
   let currentPlayer = 'cross';
+
+  const existingWinLines = document.querySelectorAll('.win-line');
+existingWinLines.forEach(line => line.remove());
+
   
   function init() {
     render();
@@ -36,8 +40,32 @@ let fields = [
       tableHTML += '</tr>';
     }
     tableHTML += '</table>';
+  
+    // Adding lines over the 9 fields
+    tableHTML += `
+    <div class="lineFrame">
+    <div class="hideCont">
+    <div class="line vertical-line"></div>
+  </div>
+
+  <div class="hideCont">
+    <div class="line horizontal-line"></div>
+  </div>
+
+  <div class="hideCont">
+    <div class="line diagonal-up-line"></div>
+  </div>
+
+  <div class="hideCont">
+    <div class="line diagonal-down-line"></div>
+  </div>
+    </div>
+
+    `;
+  
     content.innerHTML = tableHTML;
   }
+  
   
   function handleClick(fieldIndex) {
     if (!clickable || fields[fieldIndex] !== null) {
@@ -72,6 +100,9 @@ let fields = [
         setTimeout(() => {
             alert(`Congratulations! ${winnerSign} is the winner.`);
           }, 1000);
+
+          showWinLine(a,b,c);
+
         clickable = false;
         return;
       }
@@ -120,4 +151,58 @@ let fields = [
   init();
 }
 
-
+window.addEventListener('load', function() {
+    showWinLine();
+  });
+  
+  window.addEventListener('load', function() {
+    showWinLine();
+  });
+  
+  function showWinLine() {
+    const winConditions = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+  
+    const gameCells = Array.from(document.querySelectorAll('.game-cell'));
+  
+    // Überprüfe, ob die gameCells vorhanden sind und mindestens eine Zelle existiert
+    if (gameCells.length === 0) {
+      console.log('No game cells found.');
+      return;
+    }
+  
+    // Warte eine kurze Zeitspanne, um sicherzustellen, dass die Zellen vollständig gerendert sind
+    setTimeout(function() {
+      const cellWidth = gameCells[0].offsetWidth;
+      const cellHeight = gameCells[0].offsetHeight;
+  
+      for (const condition of winConditions) {
+        const [a, b, c] = condition;
+  
+        const startX = gameCells[a].offsetLeft + cellWidth / 2;
+        const startY = gameCells[a].offsetTop + cellHeight / 2;
+        const endX = gameCells[c].offsetLeft + cellWidth / 2;
+        const endY = gameCells[c].offsetTop + cellHeight / 2;
+  
+        const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+        const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+  
+        const winLine = document.createElement('div');
+        winLine.classList.add('win-line');
+        winLine.style.width = length + 'px';
+        winLine.style.top = startY + 'px';
+        winLine.style.left = startX + 'px';
+        winLine.style.transform = `rotate(${angle}deg)`;
+        document.getElementById('content').appendChild(winLine);
+      }
+    }, 100);
+  }
+  

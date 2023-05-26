@@ -1,0 +1,53 @@
+
+  /*--------------------Line Containers ---------------*/
+
+  .lineFrame {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  .hideCont {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .line {
+    position: inherit;
+    background-color: red;
+    z-index: 10;
+  }
+
+  .vertical-line {
+    width: 2px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .horizontal-line {
+    width: 100%;
+    height: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .diagonal-up-line {
+    width: 100%; /* Diagonal length = square root of (100^2 + 100^2) */
+    height: 2px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  .diagonal-down-line {
+    width: 100%; /* Diagonal length = square root of (100^2 + 100^2) */
+    height: 2px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
