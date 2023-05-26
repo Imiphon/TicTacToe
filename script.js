@@ -8,68 +8,95 @@ let fields = [
     null,
     null,
     null,
-];
-
-let clickable = true;
-let currentPlayer = 'cross';
-
-function init() {
+  ];
+  
+  let clickable = true;
+  let currentPlayer = 'cross';
+  
+  function init() {
     render();
-}
-
-function render(){
+  }
+  
+  function render() {
     let content = document.getElementById('content');
     let tableHTML = '<table>';
-    for (let i = 0; i < 3; i++) { 
-        tableHTML += '<tr>'; //3 Reihen werden generiert
-        for (let j = 0; j < 3; j++) { 
-            let fieldIndex = 3 * i + j; //3*0+0=0,3*0+1=1,...,3*2*2=8(=9.fieldIndex)
-            let symbol = '';
-            if (fields[fieldIndex] === 'circle') {
-                symbol = generateCircleSVG();
-            }
-            if (fields[fieldIndex] === 'cross') {
-                symbol = generateCrossSVG();
-            }
-            tableHTML += `<td onclick="handleClick(${fieldIndex})">${symbol}</td>`;
+    for (let i = 0; i < 3; i++) {
+      tableHTML += '<tr>';
+      for (let j = 0; j < 3; j++) {
+        let fieldIndex = 3 * i + j;
+        let symbol = '';
+        if (fields[fieldIndex] === 'circle') {
+          symbol = generateCircleSVG();
         }
-        tableHTML += '</tr>';
+        if (fields[fieldIndex] === 'cross') {
+          symbol = generateCrossSVG();
+        }
+        tableHTML += `<td onclick="handleClick(${fieldIndex})">${symbol}</td>`;
+      }
+      tableHTML += '</tr>';
     }
     tableHTML += '</table>';
     content.innerHTML = tableHTML;
-}
-
-function handleClick(fieldIndex) {
+  }
+  
+  function handleClick(fieldIndex) {
     if (!clickable || fields[fieldIndex] !== null) {
-        return;
+      return;
     }
     fields[fieldIndex] = currentPlayer;
     currentPlayer = (currentPlayer === 'circle') ? 'cross' : 'circle';
-
+  
     render();
-    clickable = true; // Setze clickable auf true, um weitere Klicks zu ermöglichen
-}
+    checkWinner();
 
-
-function generateCircleSVG() {
+    clickable = true;
+  }
+  
+  function checkWinner() {
+    const winConditions = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+  
+    for (const condition of winConditions) {
+      const [a, b, c] = condition;
+      if (fields[a] && fields[a] === fields[b] && fields[a] === fields[c] && fields[a]) {
+        let winner = fields[a];
+        let winnerSign = (winner === 'circle') ? 'Circle' : 'Cross';              
+        setTimeout(() => {
+            alert(`Congratulations! ${winnerSign} is the winner.`);
+          }, 1000);
+        clickable = false;
+        return;
+      }
+    }
+  }
+  
+  function generateCircleSVG() {
     let color = "#00B0EF";
     let width = 40;
     let height = 40;
     let animationDuration = "1.5s";
-  //Kreis startet mit r=0 und wächst dann
+    
     const svgHtml = `
       <svg width="${width}" height="${height}">
-        <circle cx="${width / 2}" cy="${height / 2}" r="0" fill="${color}" stroke="none"> 
+        <circle cx="${width / 2}" cy="${height / 2}" r="0" fill="${color}" stroke="none">
           <animate attributeName="r" from="0" to="${width / 2 - 2}" dur="${animationDuration}" fill="freeze" />
         </circle>
       </svg>
     `;
-      
+        
     return svgHtml;
   }
   
   function generateCrossSVG() {
-    let color = "#FFC000";    
+    let color = "#FFC000";
     let width = 70;
     let height = 70;
     let animationDuration = "1s";
@@ -77,24 +104,20 @@ function generateCircleSVG() {
     const lineLength = Math.min(width, height) / 3;
   
     const svgHtml = `
-      <svg width="${width}" height="${height}">
-        <line x1="${width / 2 - lineLength / 2}" y1="${height / 2 - lineLength / 2}" x2="${width / 2 + lineLength / 2}" y2="${height / 2 + lineLength / 2}" stroke="${color}" stroke-width="2">
-          <animate attributeName="x2" from="${width / 2 - lineLength / 2}" to="${width / 2 + lineLength / 2}" dur="${animationDuration}" fill="freeze" />
-          <animate attributeName="y2" from="${height / 2 - lineLength / 2}" to="${height / 2 + lineLength / 2}" dur="${animationDuration}" fill="freeze" />
-        </line>
-        <line x1="${width / 2 - lineLength / 2}" y1="${height / 2 + lineLength / 2}" x2="${width / 2 + lineLength / 2}" y2="${height / 2 - lineLength / 2}" stroke="${color}" stroke-width="2">
-          <animate attributeName="x2" from="${width / 2 - lineLength / 2}" to="${width / 2 + lineLength / 2}" dur="${animationDuration}" fill="freeze" />
-          <animate attributeName="y2" from="${height / 2 + lineLength / 2}" to="${height / 2 - lineLength / 2}" dur="${animationDuration}" fill="freeze" />
-        </line>
-      </svg>
-    `;
-  
-    return svgHtml;
-  }
-  
-  
+    <svg width="${width}" height="${height}">
+      <line x1="${width / 2 - lineLength / 2}" y1="${height / 2 - lineLength / 2}" x2="${width / 2 + lineLength / 2}" y2="${height / 2 + lineLength / 2}" stroke="${color}" stroke-width="2">
+        <animate attributeName="x2" from="${width / 2 - lineLength / 2}" to="${width / 2 + lineLength / 2}" dur="${animationDuration}" fill="freeze" />
+        <animate attributeName="y2" from="${height / 2 - lineLength / 2}" to="${height / 2 + lineLength / 2}" dur="${animationDuration}" fill="freeze" />
+      </line>
+      <line x1="${width / 2 - lineLength / 2}" y1="${height / 2 + lineLength / 2}" x2="${width / 2 + lineLength / 2}" y2="${height / 2 - lineLength / 2}" stroke="${color}" stroke-width="2">
+        <animate attributeName="x2" from="${width / 2 - lineLength / 2}" to="${width / 2 + lineLength / 2}" dur="${animationDuration}" fill="freeze" />
+        <animate attributeName="y2" from="${height / 2 + lineLength / 2}" to="${height / 2 - lineLength / 2}" dur="${animationDuration}" fill="freeze" />
+      </line>
+    </svg>
+  `;
 
-  
-  
+  return svgHtml;
+  init();
+}
 
-  
+
