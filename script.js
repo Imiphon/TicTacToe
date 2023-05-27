@@ -29,27 +29,18 @@ function render() {
     tableHTML += "</tr>";
   }
 
-  // Adding lines over the 9 fields
-  tableHTML += `
-  <div class="lineFrame" id="lineFrameID">
-    <div class="hideCont">   
-         <div class="line show-line0" id="line0"></div>    
-         <div class="line show-line1" id="line1"></div>  
-         <div class="line show-line2" id="line2"></div>    
-         <div class="line show-line3" id="line3"></div>        
-         <div class="line show-line4" id="line4"></div>        
-         <div class="line show-line5" id="line5"></div>  
-         <div class="line show-line6" id="line6"></div>
-         <div class="line show-line7" id="line7"></div>
-         <div class="line show-line8" id="line8"></div>
-    </div>
-  </div>
-  `;
+  // Adding lines over the 9 fields (default: unset)
+  tableHTML += htmlLines();
   tableHTML += "</table>";
   content.innerHTML = tableHTML;
+
+    // Überprüfung, ob fields kein null mehr enthält
+    if (!fields.includes(null)) {
+      htmlEndTxt2();
+    }
 }
 
-function htmlLines() {}
+
 
 function handleClick(fieldIndex) {
   if (!clickable || fields[fieldIndex] !== null) {
@@ -92,9 +83,7 @@ function checkWinner() {
   
         let winner = fields[a];
         let winnerSign = winner === "circle" ? "Circle" : "Cross";
-        setTimeout(() => {
-          alert(`Congratulations! ${winnerSign} is the winner. winCombi is ${winCombi}`);
-        }, 1000);
+        setTimeout(() => { htmlEndTxt1()}, 1000);
 
         document.getElementById('lineFrameID').style = 'display: block;';
         document.getElementById(`line${winCombi}`).style ='display: block;';
@@ -106,47 +95,6 @@ function checkWinner() {
       }
     }
   }
-  
-
-
-/*
-function checkWinner() {
-  const winConditions = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-
-  let winCombi = 0;
-
-  for (let condition of winConditions) {
-    const [a, b, c] = condition;
-    
-    if (
-      fields[a] &&
-      fields[a] === fields[b] &&
-      fields[a] === fields[c] &&
-      fields[a]
-    ) {
-      let winner = fields[a];
-      let winnerSign = winner === "circle" ? "Circle" : "Cross";
-      setTimeout(() => {
-        alert(`Congratulations! ${winnerSign} is the winner. winCombi is ${winComi}`);
-      }, 1000);
-
-      showWinLine(a, b, c);
-
-      clickable = false;
-      return;
-    }
-  }
-}
-*/
 
 function generateCircleSVG() {
   let color = "#00B0EF";
@@ -169,46 +117,6 @@ function generateCircleSVG() {
   return svgHtml;
 }
 
-function generateCrossSVG() {
-  let color = "#FFC000";
-  let width = 70;
-  let height = 70;
-  let animationDuration = "1s";
-
-  const lineLength = Math.min(width, height) / 3;
-
-  const svgHtml = `
-    <svg width="${width}" height="${height}">
-      <line x1="${width / 2 - lineLength / 2}" y1="${
-    height / 2 - lineLength / 2
-  }" x2="${width / 2 + lineLength / 2}" y2="${
-    height / 2 + lineLength / 2
-  }" stroke="${color}" stroke-width="2">
-        <animate attributeName="x2" from="${width / 2 - lineLength / 2}" to="${
-    width / 2 + lineLength / 2
-  }" dur="${animationDuration}" fill="freeze" />
-        <animate attributeName="y2" from="${height / 2 - lineLength / 2}" to="${
-    height / 2 + lineLength / 2
-  }" dur="${animationDuration}" fill="freeze" />
-      </line>
-      <line x1="${width / 2 - lineLength / 2}" y1="${
-    height / 2 + lineLength / 2
-  }" x2="${width / 2 + lineLength / 2}" y2="${
-    height / 2 - lineLength / 2
-  }" stroke="${color}" stroke-width="2">
-        <animate attributeName="x2" from="${width / 2 - lineLength / 2}" to="${
-    width / 2 + lineLength / 2
-  }" dur="${animationDuration}" fill="freeze" />
-        <animate attributeName="y2" from="${height / 2 + lineLength / 2}" to="${
-    height / 2 - lineLength / 2
-  }" dur="${animationDuration}" fill="freeze" />
-      </line>
-    </svg>
-  `;
-
-  return svgHtml;
-  init();
-}
 
 window.addEventListener("load", function () {
   showWinLine();

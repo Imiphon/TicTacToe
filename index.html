@@ -12,47 +12,52 @@
     />
     <link rel="stylesheet" href="style/style.css" />
     <link rel="stylesheet" href="style/nav.css" />
-    <link rel="stylesheet" href="style/line.css">
+    <link rel="stylesheet" href="style/line.css" />
 
-    <link rel="shortcut icon" href="img/Locri-49K.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/Locri-49K.png" type="image/x-icon" />
 
     <script src="script.js"></script>
+   <script src="html.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
   </head>
-  <body onload = "init()">
+  <body onload="init()">
     <!-------------------- NAVBAR -------------------->
     <nav>
-        <div class="nav-left">
-            <div class="icon-frame">
-                <img src="img/Locri-49K.png" alt="">
-            </div>
-            
+      <div class="nav-left">
+        <div class="icon-frame">
+          <img src="img/Locri-49K.png" alt="" />
         </div>
-        <div class="nav-center">
-            <h3>Tic Tac Toe</h3>
+      </div>
+      <div class="nav-center">
+        <h3>Tic Tac Toe</h3>
+      </div>
+      <div class="nav-right">
+        <div id="menuToggle">
+          <input type="checkbox" />
+          <span></span>
+          <span></span>
+          <span></span>
+          <ul id="menu">
+            <a href="index.html">Home</a
+            ><br />
+            <a href="sorry.html">Game Rules</a
+            ><br />
+            <a href="sorry.html">More</a>
+          </ul>
         </div>
-        <div class="nav-right">
-            <div id="menuToggle">
-                <input type="checkbox" />
-                <span></span>
-                <span></span>
-                <span></span>
-                <ul id="menu">
-                  <a href="">Home</a><br>
-                  <a href="">Game Rules</a><br>
-                  <a href="">More</a>
-                </ul>
-              </div>
-        </div>
+      </div>
+    </nav>
+    <!---------------------- NAVBAR END ------------------------->
 
-    </nav>    <!---------------------- NAVBAR END ------------------------->
-
-     <!-------------------- MAIN -------------------->   
-     <main id="content">
+    <div class="end-text-cover" id="endTextID">
+    </div>
+ 
+    <!-------------------- MAIN -------------------->
+    <main id="content">
       <div class="game-container">
         <div class="win-line"></div>
         <div class="game-cell"></div>
@@ -65,7 +70,6 @@
         <div class="game-cell"></div>
         <div class="game-cell"></div>
       </div>
-     </main>
-    
+    </main>
   </body>
 </html>

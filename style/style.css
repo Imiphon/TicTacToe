@@ -62,4 +62,19 @@ td:hover {
   border-right: none;
 }
 
-
+.end-text-cover {
+  position: absolute;
+  width: 100%;
+  z-index: 20;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.end-text{  
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

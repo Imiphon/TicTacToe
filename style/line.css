@@ -18,54 +18,53 @@
   .line {
     position: inherit;
     background-color: red;
-    z-index: 10;
+    z-index: 10;    
   }
-  .show-line3 {
-    width: 2px;
-    height: 100%;
-    left: 17%;
-    transform: translateX(-50%);
-    display: none;
-  }
-  .show-line4 { /*middle line*/
-    width: 2px;
-    height: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    display: none;
-  }
-  .show-line5 {
-    width: 2px;
-    height: 100%;
-    left: 83%;
-    transform: translateX(-50%);
-    display: none;
-  }
-  .show-line0 {
+  .show-line0 { /* HORIZONTAL */
     width: 100%;
-    height: 2px;
+    height: 5px;
     top: 17%;
     transform: translateY(-50%);
     display: none;
   }
   .show-line1 {
     width: 100%;
-    height: 2px;
+    height: 5px;
     top: 50%;
     transform: translateY(-50%);
     display: none;
   }
   .show-line2 {
     width: 100%;
-    height: 2px;
+    height: 5px;
     top: 83%;
     transform: translateY(-50%);
     display: none;
   }  
-
+  .show-line3 { /* VERTICAL */
+    width: 5px;
+    height: 100%;
+    left: 17%;
+    transform: translateX(-50%);
+    display: none;
+  }
+  .show-line4 { /*middle line*/
+    width: 5px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+  }
+  .show-line5 {
+    width: 5px;
+    height: 100%;
+    left: 83%;
+    transform: translateX(-50%);
+    display: none;
+  }
   .show-line7 {
     width: 100%; /* Diagonal length = square root of (100^2 + 100^2) */
-    height: 2px;
+    height: 5px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-45deg);
@@ -73,7 +72,7 @@
   }
   .show-line6 {
     width: 100%; /* Diagonal length = square root of (100^2 + 100^2) */
-    height: 2px;
+    height: 5px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(45deg);
