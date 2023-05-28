@@ -16,58 +16,13 @@ function htmlLines() {
     `;
 }
 
-function generateCrossSVG() {
-  let color = "#FFC000";
-  let width = 70;
-  let height = 70;
-  let animationDuration = "1s";
-
-  const lineLength = Math.min(width, height) / 3;
-
-  const svgHtml = `
-      <svg width="${width}" height="${height}">
-        <line x1="${width / 2 - lineLength / 2}" y1="${
-    height / 2 - lineLength / 2
-  }" x2="${width / 2 + lineLength / 2}" y2="${
-    height / 2 + lineLength / 2
-  }" stroke="${color}" stroke-width="2">
-          <animate attributeName="x2" from="${
-            width / 2 - lineLength / 2
-          }" to="${
-    width / 2 + lineLength / 2
-  }" dur="${animationDuration}" fill="freeze" />
-          <animate attributeName="y2" from="${
-            height / 2 - lineLength / 2
-          }" to="${
-    height / 2 + lineLength / 2
-  }" dur="${animationDuration}" fill="freeze" />
-        </line>
-        <line x1="${width / 2 - lineLength / 2}" y1="${
-    height / 2 + lineLength / 2
-  }" x2="${width / 2 + lineLength / 2}" y2="${
-    height / 2 - lineLength / 2
-  }" stroke="${color}" stroke-width="2">
-          <animate attributeName="x2" from="${
-            width / 2 - lineLength / 2
-          }" to="${
-    width / 2 + lineLength / 2
-  }" dur="${animationDuration}" fill="freeze" />
-          <animate attributeName="y2" from="${
-            height / 2 + lineLength / 2
-          }" to="${
-    height / 2 - lineLength / 2
-  }" dur="${animationDuration}" fill="freeze" />
-        </line>
-      </svg>
-    `;
-
-  return svgHtml;
-}
-
 function htmlEndTxt1() {
+  let endTxt2 = document.getElementById("endTextID2");
+  endTxt2.innerHTML = ""; 
   let endTxt = document.getElementById("endTextID");
   endTxt.style.display = "flex";
-
+  endTxt.innerHTML = ""; // Leert den Inhalt des Elements htmlEndTxt()
+  
   endTxt.innerHTML += `
     <div class="end-text">
     <span><h3>
@@ -88,7 +43,8 @@ function htmlEndTxt2() {
   
   let endTxt = document.getElementById("endTextID");
   endTxt.style.display = "none";
-  endTxt.innerHTML = ""; // Leere den Inhalt des Elements htmlEndTxt1()
+  endTxt.innerHTML = ""; // Leert den Inhalt des Elements htmlEndTxt()
+  endTxt2.innerHTML = ""; 
 
   endTxt2.innerHTML += `
     <div class="end-text">
