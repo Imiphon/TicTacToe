@@ -40,7 +40,7 @@ function render() {
         symbol = generateCrossSVG();
       }
 
-      if (!fields[fieldIndex]) { // wenn field gesetzt ist
+      if (!fields[fieldIndex] || symbol === "") { // prüft ob symbol(e) existieren
         tableHTML += `<td onclick="handleClick(${fieldIndex})">${symbol}</td>`;
       } else {
         tableHTML += `<td>${symbol}</td>`;
@@ -48,16 +48,17 @@ function render() {
     }
     tableHTML += "</tr>";
   }
+
   // Adding lines over the 9 fields (default: unset)
   tableHTML += htmlLines();
   tableHTML += "</table>";
   content.innerHTML = tableHTML;
+
   // Überprüfung, ob fields kein null mehr enthält
   if (!fields.includes(null)) {
     htmlEndTxt2();
   }
 }
-
 
 function handleClick(fieldIndex) {
   if (!clickable || fields[fieldIndex] !== null) {
